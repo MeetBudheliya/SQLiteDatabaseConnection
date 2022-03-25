@@ -3,6 +3,7 @@ package com.example.sqlite_database_connection;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -26,6 +27,7 @@ public class DBO extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    //Add Data in Student Table
     public  void addData(String name, Integer age){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content_value = new ContentValues();
@@ -34,10 +36,17 @@ public class DBO extends SQLiteOpenHelper {
         db.insert("student",null,content_value);
         db.close();
     }
-
+    //Delete Record by Student ID
     public void delete_record(Integer id){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("student","stud_id=?",new String[]{String.valueOf(id)});
         db.close();
+    }
+
+    //get Students list
+    public Cursor getData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor curser = db.rawQuery("select * from student",null);
+        return  curser;
     }
 }

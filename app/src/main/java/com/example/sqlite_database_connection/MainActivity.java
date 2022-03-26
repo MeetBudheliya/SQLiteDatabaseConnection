@@ -2,6 +2,7 @@ package com.example.sqlite_database_connection;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Button add;
     Button delete;
 
+    @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         Cursor result;
         result = object.getData();
-
+//        String str_name;
+//        str_name = result.getString( ( result.getColumnIndex("stud_name") ) );
         while (result.moveToNext()) {
-            sb.append(result.getColumnIndex("stud_name"));
+            sb.append(result.getString( result.getColumnIndex("stud_name") ) );
         }
-//        Toast.makeText(this, result.getColumnIndex("stud_name"), Toast.LENGTH_SHORT);
+
+        Toast.makeText(this, sb, Toast.LENGTH_SHORT).show();
     }
 }
